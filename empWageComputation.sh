@@ -2,6 +2,8 @@
 
 printf "Welcome To Employee Wage Computation\n"
 
+#ARRAY
+declare -a wage 
 #CONSTANTS
 RANDOM_END=2
 WAGE_PER_HOUR=20
@@ -15,14 +17,12 @@ TOTAL_HOURS=100
 
 #VARIABLES
 randomNumber=0
-randomNumber=$(( RANDOM % $RANDOM_END ))
-randomNumber2=$(( RANDOM % $RANDOM_END ))
+randomNumber2=0
 salary=0
 attendance=0
 totalSalary=0
 totalWorkingHours=0
 days=0
-employeeHours=0
 hours=0
 
 #GET HOURS 8 or 4
@@ -43,20 +43,32 @@ function getHours(){
 #WHILE DAY IS LESS THAN 20 AND HOURS IS LESS THAN 100 TILL CHECK
 while [ $days -lt $MONTH -a $totalWorkingHours -lt $TOTAL_HOURS ]
 do
+	#RANDOM NUMBER FOR ATTENDANCE
+	randomNumber=$(( RANDOM % $RANDOM_END ))
+	#RANDOM NUMBER FOR FULL & HALF DAY
+   randomNumber2=$(( RANDOM % $RANDOM_END ))
 	days=$(( $days + 1 ))
 	case $randomNumber in
 		$IS_PRESENT)
-			attendance="Present"
 			hours="$( getHours $(( $randomNumber2 )) )"
-			salary=$(( $WAGE_PER_HOUR * $hours ))
-			employeeHours=$hours
+		   salary=$(( $WAGE_PER_HOUR * $hours ))
 		;;
 		0)
-			attendance="Absent"
-			employeeHours=0
+			hours=0
+			salary=0
 		;;
 	esac
    	totalSalary=$(( $totalSalary + $salary ))
-		totalWorkingHours=$(( $totalWorkingHours + $employeeHours ))
+		wage[$days]=$salary
+		totalWorkingHours=$(( $totalWorkingHours + $hours ))
 done
-	printf " Employee monthly salary is : $totalSalary \n"
+
+length=$(( ${#wage[@]} ))
+
+#DISPLAYING WAGES
+for (( index=1; index<=$length ; index++ ))
+do
+	printf "${wage[$index]}\n"
+done
+
+printf "Employee monthly salary is : $totalSalary \n"
