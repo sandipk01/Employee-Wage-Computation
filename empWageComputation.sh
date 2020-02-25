@@ -17,21 +17,26 @@ randomNumber=$(( RANDOM % $RANDOM_END ))
 randomNumber2=$(( RANDOM % $RANDOM_END ))
 salary=0
 attendance=0
+totalSalary=0
+months=20
 
-case $randomNumber in
-	$IS_PRESENT)
-		attendance="Present"
-		case $randomNumber2 in
-			$IS_FULL_DAY)
-				salary=$(( $WAGE_PER_HOUR * $FULL_DAY_HOUR ))
+for(( index=0; index<20; index++ ))
+do
+	case $randomNumber in
+		$IS_PRESENT)
+			attendance="Present"
+			case $randomNumber2 in
+				$IS_FULL_DAY)
+					salary=$(( $WAGE_PER_HOUR * $FULL_DAY_HOUR ))
+			;;
+				$IS_HALF_DAY)
+					salary=$(( $WAGE_PER_HOUR * $HALF_DAY_HOUR ))
+			;;
+			esac
 		;;
-			$IS_HALF_DAY)
-				salary=$(( $WAGE_PER_HOUR * $HALF_DAY_HOUR ))
-		;;
-		esac
-	;;
-	*)
-		attendance="Absent"
-esac
-
-	printf " $attendance & salary is : $salary \n"
+		*)
+			attendance="Absent"
+	esac
+   	totalSalary=$(( $totalSalary + $salary ))
+done
+	printf " Employee monthly salary is : $totalSalary \n"
