@@ -3,7 +3,7 @@
 printf "Welcome To Employee Wage Computation\n"
 
 #ARRAY
-declare -a wage 
+declare -A wage
 #CONSTANTS
 RANDOM_END=2
 WAGE_PER_HOUR=20
@@ -68,7 +68,7 @@ length=$(( ${#wage[@]} ))
 #DISPLAYING WAGES
 for (( index=1; index<=$length ; index++ ))
 do
-	printf "${wage[$index]}\n"
+	printf "${index} ---- ${wage[$index]}\n"
 done
 
 printf "Employee monthly salary is : $totalSalary \n"
