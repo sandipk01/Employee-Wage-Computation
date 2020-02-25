@@ -18,19 +18,20 @@ randomNumber2=$(( RANDOM % $RANDOM_END ))
 salary=0
 attendance=0
 
-if [ $randomNumber -eq $IS_PRESENT ]
-	then
+case $randomNumber in
+	$IS_PRESENT)
 		attendance="Present"
-		if [ $randomNumber2 -eq $IS_FULL_DAY ]
-			then
+		case $randomNumber2 in
+			$IS_FULL_DAY)
 				salary=$(( $WAGE_PER_HOUR * $FULL_DAY_HOUR ))
-			elif [ $randomNumber2 -eq $IS_HALF_DAY ]
-				then
-					salary=$(( $WAGE_PER_HOUR * $HALF_DAY_HOUR ))
-		fi
-	else
-		salary=0
+		;;
+			$IS_HALF_DAY)
+				salary=$(( $WAGE_PER_HOUR * $HALF_DAY_HOUR ))
+		;;
+		esac
+	;;
+	*)
 		attendance="Absent"
-fi
+esac
 
 	printf " $attendance & salary is : $salary \n"
