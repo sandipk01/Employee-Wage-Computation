@@ -11,10 +11,13 @@ IS_PRESENT=1
 #VARIABLES
 randomNumber=0
 randomNumber=$(( RANDOM % RANDOM_END ))
+salary=0
 
 if [ $randomNumber -eq $IS_PRESENT ]
 	then
-		printf "Present\n"
+		salary=$(( $WAGE_PER_HOUR * $FULL_DAY_HOUR ))
+		printf "Present & salary is : $salary\n"
 	else
-		printf "Absent\n"
+		salary=0
+		printf "Absent & salary is : $salary\n"
 fi
