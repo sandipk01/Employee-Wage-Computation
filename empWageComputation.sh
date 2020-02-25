@@ -72,3 +72,5 @@ do
 done
 
 printf "Employee monthly salary is : $totalSalary \n"
+
+
